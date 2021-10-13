@@ -2,6 +2,8 @@
 #CXX=x86_64-linux-gnu-g++-9
 #CC=x86_64-w64-mingw32-gcc-posix
 #CXX=x86_64-w64-mingw32-g++-posix
+CC=x86_64-w64-mingw32-gcc
+CXX=x86_64-w64-mingw32-g++
 ifeq ($(CC),)
 	CC=gcc
 endif
@@ -18,8 +20,9 @@ CFLAGS+=-I./src
 CFLAGS+=-I./src/SqliteCpp
 CFLAGS+=-I./src/hiberlite
 CFLAGS+=-I./src/sqlite
-LDFLAGS+=-lpthread
 ifneq (,$(findstring mingw,$(TGT_MACHINE)))
+	LDFLAGS+=-static
+	LDFLAGS+=-lpthread
 	#customize mingw
 	ifneq (,$(findstring posix,$(TGT_MACHINE)))
 		#customize mingw posix
@@ -27,6 +30,7 @@ ifneq (,$(findstring mingw,$(TGT_MACHINE)))
 		#customize mingw nonposix
 	endif
 else
+	LDFLAGS+=-lpthread
 	LDFLAGS+=-ldl
 	#customize linux
 endif
