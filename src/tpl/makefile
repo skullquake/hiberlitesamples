@@ -2,14 +2,15 @@
 #CXX=x86_64-linux-gnu-g++-9
 #CC=x86_64-w64-mingw32-gcc-posix
 #CXX=x86_64-w64-mingw32-g++-posix
-CC=x86_64-w64-mingw32-gcc
-CXX=x86_64-w64-mingw32-g++
+#CC=x86_64-w64-mingw32-gcc
+#CXX=x86_64-w64-mingw32-g++
 ifeq ($(CC),)
 	CC=gcc
 endif
 ifeq ($(CXX),)
 	CXX=g++
 endif
+DBFOLDER=./db
 SRC=./src/a.c
 SRCDIR=./src
 COMPILERVERSION=$(shell $(CC) -dumpversion)
@@ -78,6 +79,7 @@ $(BINDIR)/%.o: %.cpp
 clean:
 	@rm -r ./bin
 run:$(BIN)
+	@-mkdir -p $(DBFOLDER)
 	$(BIN)
 lsvar:
 	echo $(SRC)

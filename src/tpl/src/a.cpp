@@ -26,7 +26,7 @@ int main(int argc,char**argv){
 	std::cout<<"main:beg"<<std::endl;
 	//open db
 	hiberlite::Database db;
-	db.open("a.db");
+	db.open("./db/a.db");
 	//reg mod
 	db.registerBeanClass<Person>();
 	//mutate mod
