@@ -2,24 +2,23 @@
 #include<vector>
 #include"hiberlite.h"
 class Person_{//no hiberlite
-public:
-	std::string name;
-        int age;
-	std::vector<std::string> bio;
+	public:
+		std::string name;
+		int age;
+		std::vector<std::string> bio;
 };
 class Person{//hiberliteized
-    friend class hiberlite::access;
-    template<class Archive>
-    void hibernate(Archive&ar)
-    {
-        ar & HIBERLITE_NVP(name);
-        ar & HIBERLITE_NVP(age);
-        ar & HIBERLITE_NVP(bio);
-    }
-public:
-    std::string name;
-    double age;
-    std::vector<std::string>bio;
+	friend class hiberlite::access;
+	template<class Archive>
+	void hibernate(Archive&ar){
+		ar & HIBERLITE_NVP(name);
+		ar & HIBERLITE_NVP(age);
+		ar & HIBERLITE_NVP(bio);
+	}
+	public:
+		std::string name;
+		double age;
+		std::vector<std::string>bio;
 };
 HIBERLITE_EXPORT_CLASS(Person)
 int main(int argc,char**argv){
@@ -32,11 +31,11 @@ int main(int argc,char**argv){
 	//mutate mod
 	db.dropModel();
 	db.createModel();
-	for(int i=0;i<8;i++){//ex sav
+	for(int i=0;i<128;i++){//ex sav
 		Person x;
 		x.name="Person"+std::to_string(i);
 		x.age=i;
-		for(int j=0;j<4;j++){
+		for(int j=0;j<32;j++){
 			x.bio.push_back(std::string("bio ")+std::to_string(1900+j));
 		}
 		hiberlite::bean_ptr<Person>p=db.copyBean(x);
